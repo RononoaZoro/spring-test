@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+      td {
+        text-align: center;
+        width: 15%
+      }
+      th {
+        text-align: center;
+        max-width: 20%;
+      }
+      img {
+        max-width: 15%;
+        height: auto;
+      }
+
+    </style>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th>字段</th>
+        <th>旧值</th>
+        <th>新值</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dictNameVO : ${dictNameVOS}">
+        <td th:text="${dictNameVO.dictNameDesc}">描述</td>
+        <th:block th:if="${#strings.endsWith(dictNameVO.dictName,'Photo') or #strings.endsWith(dictNameVO.dictName,'Img') or #strings.endsWith(dictNameVO.dictName,'freeholdProve')}">
+            <td>
+                <img th:each="oldValue : ${dictNameVO.oldValue}" th:src="${oldValue}"/>
+            </td>
+            <td>
+                <img th:each="newValue : ${dictNameVO.newValue}" th:src="${newValue}"/>
+            </td>
+        </th:block>
+        <th:block th:unless="${#strings.endsWith(dictNameVO.dictName,'Photo') or #strings.endsWith(dictNameVO.dictName,'Img') or #strings.endsWith(dictNameVO.dictName,'freeholdProve')}">
+            <td th:text="${dictNameVO.oldValue}">旧值</td>
+            <td th:text="${dictNameVO.newValue}">新值</td>
+        </th:block>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
